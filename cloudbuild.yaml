@@ -13,7 +13,7 @@ steps:
   args: ['exec','-t','app','composer','install']
 
 - id: "4.Copiando .env"
-  name: 'grc.io/cloud-builders/docker'
+  name: 'gcr.io/cloud-builders/docker'
   args: ['exec','-t','app','cp','.env.example','.env']
 
 - id: "5.Rodando key:generate"
