@@ -1,29 +1,29 @@
 steps:
 
-- id: "Rodando docker-compose"
+- id: "1.Rodando docker-compose"
   name: 'gcr.io/$PROJECT_ID/docker-compose:1.24.0'
   args: ['-f', 'docker-compose.cloudbuild.yaml', 'up', '-d']
 
-- id: "Rodando docker ps"
+- id: "2.Rodando docker ps"
   name: 'gcr.io/cloud-builders/docker'
   args: ['ps']
 
-- id: "Rodando composer"
+- id: "3.Rodando composer"
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec','-t','app','composer','install']
 
-- id: "Copiando .env"
+- id: "4.Copiando .env"
   name: 'grc.io/cloud-builders/docker'
   args: ['exec','-t','app','cp','.env.example','.env']
 
-- id: "Rodando key:generate"
+- id: "5.Rodando key:generate"
   name: 'grc.io/cloud-builders/docker'
   args: ['exec','-t','app','php','/var/www/artisan','key:generate']
 
-- id: "Rodando migrations"
+- id: "6.Rodando migrations"
   name: 'grc.io/cloud-builders/docker'
   args: ['exec','-t','app','php','/var/www/artisan','migrate']
 
-- id: "Rodando phpunit"
+- id: "7.Rodando phpunit"
   name: 'grc.io/cloud-builders/docker'
   args: ['exec','-t','app','php','/var/www/vendor/bin/phpunit','-c','/var/www/phpunit.xml']
